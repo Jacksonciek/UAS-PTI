@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 function Home() {
   return (
-    <div>Home</div>
-  )
-}
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">Home</h1>
+    </div>
+  );
+};
 
-export default Home
+export default Home;

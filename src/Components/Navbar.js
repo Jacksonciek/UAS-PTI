@@ -8,7 +8,7 @@ function Navbar() {
         <Link to='/' className='title'>Astoon</Link>
         <ul>
             <CustomLink to='/About' className='side'>About</CustomLink>
-            {/* <CustomLink to='/FAQ' className='side'>FAQ</CustomLink> */}
+            <CustomLink to='/TopHeadline' className='side'>Top News</CustomLink>
         </ul>
     </nav>
   )

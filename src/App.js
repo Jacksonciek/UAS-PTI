@@ -3,6 +3,7 @@ import Home from "./Pages/Home"
 import About from "./Pages/About";
 // import FAQ from "./Pages/FAQ";
 import { Route, Routes } from "react-router-dom";
+import TopHeadline from "./Pages/TopHeadline";
 
 function App() {
   return ( 
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
+          <Route path="/TopHeadline" element={<TopHeadline />} />
         </Routes>
       </div>
     </div>
