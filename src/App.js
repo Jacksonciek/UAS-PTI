@@ -1,9 +1,11 @@
 import Navbar from "./Components/Navbar";
 import Home from "./Pages/Home"
 import About from "./Pages/About";
-// import FAQ from "./Pages/FAQ";
 import { Route, Routes } from "react-router-dom";
-import TopHeadline from "./Pages/TopHeadline";
+import Search from "./Pages/Search";
+import Pokedex from "./Pages/Pokedex"
+import Berries from "./Pages/Berries";
+import Items from "./Pages/Items"
 
 function App() {
   return ( 
@@ -13,7 +15,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
-          <Route path="/TopHeadline" element={<TopHeadline />} />
+          <Route path="/Pokedex" element={<Pokedex />} />
+          <Route path="/Berries" element={<Berries />} />
+          <Route path="/Items" element={<Items />} />
+          <Route path="/Search" element={<Search />} />
         </Routes>
       </div>
     </div>

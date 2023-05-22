@@ -1,76 +1,70 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-function Search() {
-  const title = 'Kanojyo to Himitsu to Koimoyou';
-  const baseUrl = 'https://api.mangadex.org';
-  const [mangaData, setMangaData] = useState([]);
+const Search = () => {
+    const [pokemonData, setPokemonData] = useState(null);
+    const [pokemonInput, setPokemonInput] = useState('');
+    const [showNoDataMessage, setShowNoDataMessage] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resp = await axios.get(`${baseUrl}/manga`, {
-          params: {
-            title: title
-          }
-        });
-
-        const mangaIds = resp.data.data.map(manga => manga.id);
-
-        const mangaDetailsPromises = mangaIds.map(mangaId =>
-          axios.get(`${baseUrl}/manga/${mangaId}`)
-        );
-
-        const mangaDetailsResponses = await Promise.all(mangaDetailsPromises);
-
-        const coverIds = mangaDetailsResponses.map(response =>
-          response.data.data.relationships.find(
-            relationship => relationship.type === 'cover_art'
-          ).id
-        );
-
-        const coverPromises = coverIds.map(coverId =>
-          axios.get(`${baseUrl}/cover/${coverId}`)
-        );
-
-        const coverResponses = await Promise.all(coverPromises);
-
-        const mangaData = coverResponses.map(response => {
-          const mangaId = response.data.data.relationships.find(
-            relationship => relationship.type === 'manga'
-          ).id;
-          const coverUrl = response.data.data.attributes.fileName;
-          return {
-            mangaId,
-            coverUrl: `https://uploads.mangadex.org/covers/${mangaId}/${coverUrl}`
-          };
-        });
-
-        setMangaData(mangaData);
-
-      } catch (error) {
-        console.error('Error:', error);
-      }
+    const handleInputChange = (event) => {
+        setPokemonInput(event.target.value);
     };
 
-    fetchData();
-  }, []);
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        if (pokemonInput.trim() !== '') {
+            fetchPokemonData();
+        }
+    };
 
-  return (
-    <div>
-      <h1>{title}</h1>
-      <div className="flex flex-wrap">
-        {mangaData.map(manga => (
-          <img
-            className='w-48 mx-2 my-2'
-            key={manga.mangaId}
-            src={manga.coverUrl}
-            alt="Manga Cover"
-          />
-        ))}
-      </div>
-    </div>
-  );  
-}
+    const fetchPokemonData = async () => {
+        try {
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonInput}`);
+            if (response.status === 200) {
+                setPokemonData(response.data);
+                setShowNoDataMessage(false);
+            } else {
+                setPokemonData(null);
+                setShowNoDataMessage(true);
+            }
+        } catch (error) {
+            console.log(error);
+            setPokemonData(null);
+            setShowNoDataMessage(true);
+        }
+    };
+
+    return (
+        <div className="container mx-auto">
+            <h1 className="text-3xl font-bold mb-4">Pokémon Information</h1>
+            <form onSubmit={handleFormSubmit} className="mb-4">
+                <input
+                    type="text"
+                    placeholder="Enter Pokémon name or ID"
+                    value={pokemonInput}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 rounded p-2 mr-2"
+                />
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                    Search
+                </button>
+            </form>
+            {showNoDataMessage && <p className="text-red-500">Oops.. No data found</p>}
+            {pokemonData && (
+                <div className="border border-gray-300 rounded p-4 capitalize">
+                    <h2 className="text-xl font-bold mb-2">{pokemonData.name}</h2>
+                    <img src={pokemonData.sprites.front_default} alt={pokemonData.name} className="mb-2" />
+                    <p>
+                        <span className="font-bold">Type:</span> {pokemonData.types.map((type) => type.type.name).join(', ')}
+                    </p>
+                    <span className="font-bold">Stats:</span> {pokemonData.stats.map((stat) => <h3>{stat.stat.name} : {stat.base_stat}</h3>)}
+                    <p>
+                        <span className="font-bold">Abilities:</span> {pokemonData.abilities.map((ability) => ability.ability.name).join(', ')}
+                    </p>
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default Search;
