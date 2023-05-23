@@ -23,17 +23,15 @@ const Pokeinfo = ({ data }) => {
                             }
                         </div>
                         <div className="base-stat text-center capitalize">
-                            {
-                                data.stats.map(poke => {
-                                    // console.log(poke);
-                                    return (
-                                        <>
-                                            <h3>{poke.stat.name} : {poke.base_stat}</h3>
-                                        </>
-                                    )
-                                })
-                            }
+                            {data.stats.map((poke, index) => {
+                                return (
+                                    <React.Fragment key={index}>
+                                        <h3>{poke.stat.name} : {poke.base_stat}</h3>
+                                    </React.Fragment>
+                                );
+                            })}
                         </div>
+
                     </>
                 )
             }
