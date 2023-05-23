@@ -35,8 +35,8 @@ const Item = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Item Information</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Search Items</h1>
       <form onSubmit={handleFormSubmit} className="mb-4">
         <input
           type="text"
@@ -60,12 +60,18 @@ const Item = () => {
             <span className="font-bold">Category:</span> {itemData.category.name}
           </p>
           <p>
-            <span className="font-bold">Cost:</span> {itemData.cost}
+            <span className="font-bold">Cost:</span> {itemData.cost} P
           </p>
           <p>
             <span className="font-bold">Attributes:</span>{' '}
             {itemData.attributes.map((attribute) => attribute.name).join(', ')}
           </p>
+          <br />
+          {itemData.effect_entries[0] && (
+            <p>
+              {itemData.effect_entries[0].effect}
+            </p>
+          )}
         </div>
       )}
     </div>

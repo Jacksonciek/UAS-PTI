@@ -5,20 +5,22 @@ import About from "./Pages/About";
 import { Route, Routes } from "react-router-dom";
 import Search from "./Pages/Search";
 import Pokedex from "./Pages/Pokedex"
-import Berries from "./Pages/Berries";
+import Abilities from "./Pages/Abilities";
 import Items from "./Pages/Items"
+import Types from "./Pages/Types"
 
 function App() {
-  return ( 
+  return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/About" element={<About />} />
           <Route path="/Pokedex" element={<Pokedex />} />
-          <Route path="/Berries" element={<Berries />} />
+          <Route path="/Abilities" element={<Abilities />} />
           <Route path="/Items" element={<Items />} />
+          <Route path="/Types" element={<Types />} />
           <Route path="/Search" element={<Search />} />
         </Routes>
       </div>

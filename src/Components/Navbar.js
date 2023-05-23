@@ -60,8 +60,9 @@ function Navbar() {
       >
         <CustomLink to="/About">About</CustomLink>
         <CustomLink to="/Pokedex">Pokedex</CustomLink>
-        <CustomLink to="/Berries">Berries</CustomLink>
+        <CustomLink to="/Abilities">Abilities</CustomLink>
         <CustomLink to="/Items">Items</CustomLink>
+        <CustomLink to="/Types">Types</CustomLink>
         <CustomLink to="/Search">Search</CustomLink>
       </ul>
     </nav>
